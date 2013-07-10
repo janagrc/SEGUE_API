@@ -11,7 +11,7 @@ def openfile(filename):
     from astropy.io import fits
     data = fits.open("filename")
 
-    return "The fits file is opened as 'data'"
+    print "The fits file is opened as 'data'"
 
 
 
