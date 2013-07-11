@@ -4,37 +4,24 @@ import copy
 import pylab
 import math
 
-class Star(object):
-	def__init__(self):
-		self.fields = {}
-	
-class DataFile(object):
-	def __init__(self, path):
+
+class datafile:
+	#def __init__(self, path, variableList=["LOGG_ADOP", "FEH_ADOP", "TEFF_ADOP", "SPECTYPE_HAMMER"]):
+	def __init__(self, path, variableList=["LOGG_ADOP", "FEH_ADOP", "TEFF_ADOP", "SPECTYPE_HAMMER"]):
 		self.path = path
 		datafile = fits.open(path)
-		column_names = datafile[1].columns.names
-		self.stars = [] #list of star objects, each with a dict of fields
-		#for row in xrange(0,datafile[0].header['naxis2']
-		for row in xrange(0,len(datafile[1].data.field('TEFF_ADOP')+1):
-			stardata=datafile[1].data[row]
-			s=Star()
-			for column in column_names:
-				s.fields[column]=stardata.field(column)
-					
-		# for row in rows
-		# read in row
-		# check it's good if isgood(star) then 
+		#self.dataDict = {}
+		#for variable in variableList:
+		#	self.dataDict[variable] = np.array(datafile[1].data.field(variable))
+		self.logg = np.array(datafile[1].data.field("LOGG_ADOP"))
+		self.feh = np.array(datafile[1].data.field("FEH_ADOP"))
+		self.teff = np.array(datafile[1].data.field("TEFF_ADOP"))
+		self.spectypehammer = np.array(datafile[1].data.field("SPECTYPE_HAMMER"))
+		self.clean()
 		
-		# if good, add star object to stars
-			if isgood(s):
-				self.stars.append(s)
-	def isgood(self):
-		self= True
-		#if anything is bad set to false
-	
 	def clean(self):
 		self.logg, self.feh, self.teff, self.spectypehammer = cleanData([self.logg, self.feh, self.teff, self.spectypehammer])
-		#cleanedDataList = cleanData(self.dataDict.values())			
+		#cleanedDataList = cleanData(self.dataDict.values())
 		
 	def uniqueSpectralTypes(self):
 		return list(set(self.spectypehammer))
