@@ -3,6 +3,9 @@ import copy
 import pylab
 import math
 import matplotlib.pyplot as plt
+import plot_commands_stars as pcs
+reload(pcs)
+
 #How do you reimport after making changes?
 import star
 reload(star)
@@ -11,11 +14,4 @@ x = DataFile("../data/small_ssppOut-dr9.fits")
 print len(x.gooddata)
 
 
-def plothist(feh,rv,dist):
-    fig,axes = pylab.subplots(1, 3)
-    axes[0].hist(feh, label="[Fe/H]", facecolor="red", alpha=0.5, histtype='stepfilled', bins=20)
-    axes[1].hist(rv, label="RV", facecolor="red", alpha=0.5, histtype='stepfilled')
-    axes[2].hist(dist, label="Dist", facecolor="red", alpha=0.5, histtype='stepfilled')
-    pylab.show()
-
-plothist(feh,rv,dist)
+pcs.plothist(x.gooddata["FEH_ADOP"],x.gooddata["RV_ADOP"],x.gooddata["DIST_ADOP"])
