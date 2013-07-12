@@ -14,6 +14,14 @@ class DataFile(object):
         self.path = path
         datafile = fits.open(path)
         self.column_names = datafile[1].columns.names
+  
+ # What we should be doing       
+     #   data = datafile[1].data # is a rec array
+     #   
+     #   mask = (data['targname'] == "your name")
+     #   data[mask]
+        
+        
 		# Datafile.stars is a list of star objects
         self.stars = [] 
         # Loop through the file, reading each row one at a time, 
@@ -39,13 +47,22 @@ class DataFile(object):
         for i in xrange(0, len(self.stars)):
             stypes.append(self.stars[i].fields["SPECTYPE_HAMMER"])
         self.spectypes=unique_spectral_types(stypes)
+      
+      
+ #   def get_star_obj (self,starname):
+ #       
+ #       mask = (data['targname'] == "your name")
+ #       data[mask]
+ #       # create star object
+ #       # return
+        
        
-   	def goodStar(stardata, badValue=-9999):
-        goodvalues=True
-        if stardata["LOGG_ADOP"]==badValue or stardata["FEH_ADOP"]==badValue or stardata["TEFF_ADOP"]==badValue:
-            goodvalues=False
-        return goodvalues
+def goodStar(stardata, badValue=-9999):
+    goodvalues=True
+    if stardata["LOGG_ADOP"]==badValue or stardata["FEH_ADOP"]==badValue or stardata["TEFF_ADOP"]==badValue:
+        goodvalues=False
+    return goodvalues
 
-    def unique_spectral_types(stypes):
-		return list(set(stypes))
+def unique_spectral_types(stypes):
+	return list(set(stypes))
  

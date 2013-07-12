@@ -3,9 +3,12 @@ import copy
 import pylab
 import math
 import matplotlib.pyplot as plt
+#How do you reimport after making changes?
+import spect3
+reload(spect3)
 from spect3 import DataFile
 
-#How do you reimport after making changes?
+
 x = DataFile("../data/ssppOut-dr9.fits")
 # Print out unique spectral types. Note: I had to loop through stars to get this...
 print x.spectypes
@@ -21,7 +24,7 @@ for i in xrange(0, len(x.stars)):
     dist.append(x.stars[i].fields["DIST_ADOP"])
     
 # I can't plot anything!
-def plothist(feh,rv,dist)
+def plothist(feh,rv,dist):
     fig,axes = pylab.subplots(1, 3)
     axes[0].hist(feh, label="[Fe/H]", facecolor="red", alpha=0.5, histtype='stepfilled', bins=20)
     axes[1].hist(rv, label="RV", facecolor="red", alpha=0.5, histtype='stepfilled')
@@ -29,9 +32,10 @@ def plothist(feh,rv,dist)
     pylab.show()
 
 plothist(feh,rv,dist)
-# Function to accept galactic longitude, latitude and heliocentric distance and convert to Galactic X, Y, Z
+
+# Need Function to accept galactic longitude, latitude and heliocentric distance and convert to Galactic X, Y, Z
 # plothist(feh,rv,galdist)
 # Add column to stars that has Galactocentric distance?
 
-# Select stars with [Fe/H]<-1
+# Select stars where [Fe/H]<-1
 # plothist...
